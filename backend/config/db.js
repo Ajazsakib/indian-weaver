@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+import 'dotenv/config'
 export const connectDB = async () =>
 {
   const password = "S1s2s3s4@12";

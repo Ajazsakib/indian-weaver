@@ -5,7 +5,8 @@ import './assets/styles/index.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {
+import
+{
   createBrowserRouter,
   createRoutesFromElements,
   Route,
@@ -32,6 +33,7 @@ import UserEditScreen from './screens/admin/UserEditScreen';
 import store from './store';
 import { Provider } from 'react-redux';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
+import HeaderContainer from './components/HeaderContainer';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -45,8 +47,11 @@ const router = createBrowserRouter(
       />
       <Route path='/product/:id' element={<ProductScreen />} />
       <Route path='/cart' element={<CartScreen />} />
+
       <Route path='/login' element={<LoginScreen />} />
       <Route path='/register' element={<RegisterScreen />} />
+
+
       {/* Registered users */}
       <Route path='' element={<PrivateRoute />}>
         <Route path='/shipping' element={<ShippingScreen />} />

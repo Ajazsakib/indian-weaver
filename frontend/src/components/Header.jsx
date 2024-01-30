@@ -9,7 +9,8 @@ import SearchBox from './SearchBox';
 import logo from '../assets/logo.png';
 import { resetCart } from '../slices/cartSlice';
 
-const Header = () => {
+const Header = () =>
+{
   const { cartItems } = useSelector((state) => state.cart);
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -18,7 +19,8 @@ const Header = () => {
 
   const [logoutApiCall] = useLogoutMutation();
 
-  const logoutHandler = async () => {
+  const logoutHandler = async () =>
+  {
     try {
       await logoutApiCall().unwrap();
       dispatch(logout());
@@ -33,26 +35,37 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar bg='primary' variant='dark' expand='lg' collapseOnSelect>
+      <Navbar className='menu-bar' expand='lg' collapseOnSelect>
         <Container>
           <LinkContainer to='/'>
             <Navbar.Brand>
               <img src={logo} alt='ProShop' />
-              ProShop
+              Indian Weaver
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
-            <Nav className='ms-auto'>
-              <SearchBox />
+            <Nav className='ms-auto custom-menu'>
+              {/* <SearchBox /> */}
+              <LinkContainer to='/profile'>
+                <NavDropdown.Item>HOME</NavDropdown.Item>
+              </LinkContainer>
+              <LinkContainer to='/profile'>
+                <NavDropdown.Item>ABOUT US</NavDropdown.Item>
+              </LinkContainer>
+              <LinkContainer to='/profile'>
+                <NavDropdown.Item>SHOP</NavDropdown.Item>
+              </LinkContainer>
+              <LinkContainer to='/profile'>
+                <NavDropdown.Item>PRODUCTS</NavDropdown.Item>
+              </LinkContainer>
+              <LinkContainer to='/profile'>
+                <NavDropdown.Item>PORTFOLIO</NavDropdown.Item>
+              </LinkContainer>
               <LinkContainer to='/cart'>
                 <Nav.Link>
-                  <FaShoppingCart /> Cart
-                  {cartItems.length > 0 && (
-                    <Badge pill bg='success' style={{ marginLeft: '5px' }}>
-                      {cartItems.reduce((a, c) => a + c.qty, 0)}
-                    </Badge>
-                  )}
+                  CART(0)
+
                 </Nav.Link>
               </LinkContainer>
               {userInfo ? (

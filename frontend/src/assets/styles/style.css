@@ -1,0 +1,88 @@
+:root {
+    --primaryColor: #0c5adb;
+    --headingColor: #232323;
+    --textColor: ##616161;
+}   
+
+/* Code For Top Header*/
+.header-container-fluid {
+    background-color: var(--primaryColor);
+    height: 40px;
+    display: flex;
+        align-items: center;
+        padding: 0 60px;
+}
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.personal-info {
+    width: 40%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.personal-info div {
+    color: #ffffff;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    margin-right: 24px;
+}
+.personal-info div span {
+    font-size: 20px;
+    margin-right: 12px;
+}
+.offer {
+    width: 35%;
+    display: flex;
+    
+    flex-wrap: wrap;
+}
+.offer div {
+    
+    color: #ffffff;
+    border-right: 1px solid #ffffff;
+    padding: 0 14px;
+
+}
+.offer div:last-child {
+    border-right: 0 !important;
+}
+.social-icons {
+    width: 25%;
+    display: flex;
+        justify-content: flex-end;
+}
+.social-icons div img {
+    width: 16px;
+    height: 16px;
+    margin-left: 12px;
+}
+/* Code For Menu Header */
+.menu-bar {
+    background-color: #ffffff !important;
+}
+.menu-bar .active.navbar-brand {
+    width: 80px;
+    height: 80px;
+    font-size: 30px;
+    color: var(--headingColor);
+    font-weight: bold;
+    cursor: pointer;
+}
+.menu-bar .active.navbar-brand img {
+    width: 100%;
+    margin-right: 16px;
+}
+.custom-menu {
+    display: flex;
+    align-items: center;
+}
+.custom-menu a {
+    margin: 0 8px;
+    font-weight: 500;
+    color: var(--headingColor);
+    text-transform: capitalize;
+}

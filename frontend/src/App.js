@@ -5,14 +5,17 @@ import { Outlet } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { logout } from './slices/authSlice';
-
+import { useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-const App = () => {
+import HeaderWraper from './components/HeaderWraper';
+import HeaderContainer from './components/HeaderContainer';
+const App = () =>
+{
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     const expirationTime = localStorage.getItem('expirationTime');
     if (expirationTime) {
       const currentTime = new Date().getTime();
@@ -22,15 +25,20 @@ const App = () => {
       }
     }
   }, [dispatch]);
-
+  const { userInfo } = useSelector((state) => state.auth);
   return (
     <>
       <ToastContainer />
-      <Header />
-      <main className='py-3'>
-        <Container>
-          <Outlet />
-        </Container>
+
+
+
+      <HeaderContainer>
+        <HeaderWraper /><Header />
+      </HeaderContainer>
+      <main>
+
+        <Outlet />
+
       </main>
       <Footer />
     </>
