@@ -5,11 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../components/Loader';
 import FormContainer from '../components/FormContainer';
 
-import { useRegisterMutation } from '../slices/usersApiSlice';
-import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
-
-const RegisterScreen = () => {
+import { registerUser } from '../slices/usersApiSlice';
+const RegisterScreen = () =>
+{
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -18,7 +17,7 @@ const RegisterScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [register, { isLoading }] = useRegisterMutation();
+  // const [register, { isLoading }] = useRegisterMutation();
 
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -26,21 +25,23 @@ const RegisterScreen = () => {
   const sp = new URLSearchParams(search);
   const redirect = sp.get('redirect') || '/';
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     if (userInfo) {
       navigate(redirect);
     }
   }, [navigate, redirect, userInfo]);
 
-  const submitHandler = async (e) => {
+  const submitHandler = async (e) =>
+  {
     e.preventDefault();
 
     if (password !== confirmPassword) {
       toast.error('Passwords do not match');
     } else {
       try {
-        const res = await register({ name, email, password }).unwrap();
-        dispatch(setCredentials({ ...res }));
+        dispatch(registerUser({ name, email, password }))
+        // dispatch(setCredentials({ ...res }));
         navigate(redirect);
       } catch (err) {
         toast.error(err?.data?.message || err.error);
@@ -50,7 +51,7 @@ const RegisterScreen = () => {
 
   return (
     <FormContainer>
-      <h1>Register</h1>
+      <h1>Regisster</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group className='my-2' controlId='name'>
           <Form.Label>Name</Form.Label>
@@ -91,11 +92,11 @@ const RegisterScreen = () => {
           ></Form.Control>
         </Form.Group>
 
-        <Button disabled={isLoading} type='submit' variant='primary'>
+        <Button disabled={false} type='submit' variant='primary'>
           Register
         </Button>
 
-        {isLoading && <Loader />}
+        {/* {isLoading && <Loader />} */}
       </Form>
 
       <Row className='py-3'>

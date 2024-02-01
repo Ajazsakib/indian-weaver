@@ -10,6 +10,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import HeaderWraper from './components/HeaderWraper';
 import HeaderContainer from './components/HeaderContainer';
+import AboutUs from './components/AboutUs';
 const App = () =>
 {
   const dispatch = useDispatch();
@@ -21,11 +22,11 @@ const App = () =>
       const currentTime = new Date().getTime();
 
       if (currentTime > expirationTime) {
+        alert("timeout")
         dispatch(logout());
       }
     }
   }, [dispatch]);
-  const { userInfo } = useSelector((state) => state.auth);
   return (
     <>
       <ToastContainer />
@@ -38,7 +39,7 @@ const App = () =>
       <main>
 
         <Outlet />
-
+        <AboutUs />
       </main>
       <Footer />
     </>

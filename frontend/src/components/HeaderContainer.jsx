@@ -5,8 +5,6 @@ import { useLocation } from 'react-router-dom';
 const HeaderContainer = ({ children }) =>
 {
     const location = useLocation()
-    console.log(location.pathname)
-    const { userInfo } = useSelector((state) => state.auth);
     return (
         <div>
             {

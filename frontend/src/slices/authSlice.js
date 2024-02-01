@@ -10,14 +10,17 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setCredentials: (state, action) => {
+    setCredentials: (state, action) =>
+    {
       state.userInfo = action.payload;
       localStorage.setItem('userInfo', JSON.stringify(action.payload));
     },
-    logout: (state, action) => {
+    logout: (state, action) =>
+    {
       state.userInfo = null;
       // NOTE: here we need to also remove the cart from storage so the next
       // logged in user doesn't inherit the previous users cart and shipping
+      alert("logout")
       localStorage.clear();
     },
   },
