@@ -3,6 +3,8 @@ import { ORDERS_URL, PAYPAL_URL } from '../constants';
 // import { addAuthHeaders } from '../utils/authUtils';
 
 let authUser;
+let token = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")).token : null
+console.log(token)
 const addAuthHeaders = () =>
 {
   if (localStorage.getItem('userInfo')) {
@@ -24,7 +26,8 @@ export const orderApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body: order,
         headers: {
-          Authorization: `Bearer ${addAuthHeaders()}`,
+          Authorization: `Bearer ${token}`,
+          // Add other headers if needed
         },
       }),
     }),
@@ -32,7 +35,8 @@ export const orderApiSlice = apiSlice.injectEndpoints({
       query: (id) => ({
         url: `${ORDERS_URL}/${id}`,
         headers: {
-          Authorization: `Bearer ${addAuthHeaders()}`,
+          Authorization: `Bearer ${token}`,
+          // Add other headers if needed
         },
       }),
       keepUnusedDataFor: 5,
@@ -43,7 +47,8 @@ export const orderApiSlice = apiSlice.injectEndpoints({
         method: 'PUT',
         body: details,
         headers: {
-          Authorization: `Bearer ${addAuthHeaders()}`,
+          Authorization: `Bearer ${token}`,
+          // Add other headers if needed
         },
       }),
     }),
@@ -51,7 +56,8 @@ export const orderApiSlice = apiSlice.injectEndpoints({
       query: () => ({
         url: PAYPAL_URL,
         headers: {
-          Authorization: `Bearer ${addAuthHeaders()}`,
+          Authorization: `Bearer ${token}`,
+          // Add other headers if needed
         },
       }),
       keepUnusedDataFor: 5,
@@ -60,8 +66,8 @@ export const orderApiSlice = apiSlice.injectEndpoints({
       query: () => ({
         url: `${ORDERS_URL}/mine`,
         headers: {
-          // Include your authorization token here
-          Authorization: `Bearer ${authUser ? authUser?.token : ""}`,
+          Authorization: `Bearer ${token}`,
+          // Add other headers if needed
         },
       }),
       keepUnusedDataFor: 5,
@@ -70,7 +76,8 @@ export const orderApiSlice = apiSlice.injectEndpoints({
       query: () => ({
         url: ORDERS_URL,
         headers: {
-          Authorization: `Bearer ${addAuthHeaders()}`,
+          Authorization: `Bearer ${token}`,
+          // Add other headers if needed
         },
       }),
       keepUnusedDataFor: 5,
@@ -80,7 +87,8 @@ export const orderApiSlice = apiSlice.injectEndpoints({
         url: `${ORDERS_URL}/${orderId}/deliver`,
         method: 'PUT',
         headers: {
-          Authorization: `Bearer ${addAuthHeaders()}`,
+          Authorization: `Bearer ${token}`,
+          // Add other headers if needed
         },
       }),
     }),

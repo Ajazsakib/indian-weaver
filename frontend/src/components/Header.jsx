@@ -1,4 +1,7 @@
-import { Navbar, Nav, Container, NavDropdown, Badge } from 'react-bootstrap';
+// Header.jsx
+
+import React from 'react';
+import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { FaShoppingCart, FaUser } from 'react-icons/fa';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,28 +12,32 @@ import SearchBox from './SearchBox';
 import logo from '../assets/logo.png';
 import { resetCart } from '../slices/cartSlice';
 import { logoutUser } from '../slices/usersApiSlice';
+
+export const getUserInfoFromLocalStorage = () =>
+{
+  const userInfoString = localStorage.getItem('userInfo');
+  return userInfoString ? JSON.parse(userInfoString) : null;
+
+};
+
 const Header = () =>
 {
-  const { cartItems } = useSelector((state) => state.cart);
-  const userInfo = useSelector((state) => state.user);
-  const getUserInfo = JSON.parse(localStorage.getItem("userInfo"))
-  const isLoggedIn = localStorage.getItem("isLoggedIn")
-  console.log(userInfo)
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const userInfo = useSelector((state) => state.user);
+  const getUserInfo = getUserInfoFromLocalStorage();
+  const isLoggedIn = localStorage.getItem('isLoggedIn');
 
-  // const [logoutApiCall] = useLogoutMutation();
+  let numOfCart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")).cartItems.length : 0
+
+
 
   const logoutHandler = async () =>
   {
     try {
-      // await logoutApiCall().unwrap();
       dispatch(logoutUser());
-      // NOTE: here we need to reset cart state for when a user logs out so the next
-      // user doesn't inherit the previous users cart and shipping
-      // dispatch(resetCart());
-      // navigate('/login');
+      dispatch(resetCart());
+      navigate('/login');
     } catch (err) {
       console.error(err);
     }
@@ -49,50 +56,44 @@ const Header = () =>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='ms-auto custom-menu'>
-              {/* <SearchBox /> */}
-              <LinkContainer to='/profile'>
+              {/* Other menu items */}
+              <LinkContainer to='/login'>
                 <NavDropdown.Item>HOME</NavDropdown.Item>
               </LinkContainer>
-              <LinkContainer to='/profile'>
+              <LinkContainer to='/login'>
                 <NavDropdown.Item>ABOUT US</NavDropdown.Item>
               </LinkContainer>
-              <LinkContainer to='/profile'>
-                <NavDropdown.Item>SHOP</NavDropdown.Item>
-              </LinkContainer>
-              <LinkContainer to='/profile'>
-                <NavDropdown.Item>PRODUCTS</NavDropdown.Item>
-              </LinkContainer>
-              <LinkContainer to='/profile'>
+              <LinkContainer to='/login'>
                 <NavDropdown.Item>PORTFOLIO</NavDropdown.Item>
               </LinkContainer>
-              {
-                isLoggedIn && <LinkContainer to='/cart'>
+              {isLoggedIn && (
+                <LinkContainer to='/cart'>
                   <Nav.Link>
-                    CART(0)
-
+                    CART({numOfCart})
                   </Nav.Link>
-                </LinkContainer>
-              }
-
-              {isLoggedIn ? (
-                <>
-                  <NavDropdown title={getUserInfo?.name} id='username'>
-                    <LinkContainer to='/profile'>
-                      <NavDropdown.Item>Profile</NavDropdown.Item>
-                    </LinkContainer>
-                    <NavDropdown.Item onClick={logoutHandler}>
-                      Logout
-                    </NavDropdown.Item>
-                  </NavDropdown>
-                </>
-              ) : (
-                <LinkContainer to='/login'>
-                  <NavDropdown.Item>Sign In</NavDropdown.Item>
                 </LinkContainer>
               )}
 
+              {
+                isLoggedIn ? (
+                  <>
+                    <NavDropdown title={getUserInfo?.name} id='username'>
+                      <LinkContainer to='/profile'>
+                        <NavDropdown.Item>Profile</NavDropdown.Item>
+                      </LinkContainer>
+                      <NavDropdown.Item onClick={logoutHandler}>
+                        Logout
+                      </NavDropdown.Item>
+                    </NavDropdown>
+                  </>
+                ) : (
+                  <LinkContainer to='/login'>
+                    <NavDropdown.Item>Sign In</NavDropdown.Item>
+                  </LinkContainer>
+                )}
+
               {/* Admin Links */}
-              {isLoggedIn && userInfo.isAdmin && (
+              {isLoggedIn && getUserInfo.isAdmin && (
                 <NavDropdown title='Admin' id='adminmenu'>
                   <LinkContainer to='/admin/productlist'>
                     <NavDropdown.Item>Products</NavDropdown.Item>
@@ -109,7 +110,7 @@ const Header = () =>
           </Navbar.Collapse>
         </Container>
       </Navbar>
-    </header>
+    </header >
   );
 };
 

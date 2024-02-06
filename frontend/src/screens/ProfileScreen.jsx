@@ -18,13 +18,15 @@ const ProfileScreen = () =>
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
+    const { data: orders, isLoading, error } = useGetMyOrdersQuery();
 
 
 
-    //   useEffect(() => {
+    // useEffect(() =>
+    // {
     //     setName(userInfo.name);
     //     setEmail(userInfo.email);
-    //   }, [userInfo.email, userInfo.name]);
+    // }, [userInfo.email, userInfo.name]);
 
     const dispatch = useDispatch();
     // const submitHandler = async (e) =>
@@ -123,7 +125,7 @@ const ProfileScreen = () =>
                         </tr>
                     </thead>
                     <tbody>
-                        {/* {orders.map((order) => (
+                        {orders && orders.map((order) => (
                             <tr key={order._id}>
                                 <td>{order._id}</td>
                                 <td>{order.createdAt.substring(0, 10)}</td>
@@ -150,7 +152,7 @@ const ProfileScreen = () =>
                                     </LinkContainer>
                                 </td>
                             </tr>
-                        ))} */}
+                        ))}
                     </tbody>
                 </Table>
                 {/* )} */}

@@ -1,19 +1,21 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  Row,
-  Col,
-  ListGroup,
-  Image,
-  Form,
-  Button,
-  Card,
-} from 'react-bootstrap';
+import
+  {
+    Row,
+    Col,
+    ListGroup,
+    Image,
+    Form,
+    Button,
+    Card,
+  } from 'react-bootstrap';
 import { FaTrash } from 'react-icons/fa';
 import Message from '../components/Message';
 import { addToCart, removeFromCart } from '../slices/cartSlice';
 
-const CartScreen = () => {
+const CartScreen = () =>
+{
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -22,16 +24,25 @@ const CartScreen = () => {
 
   // NOTE: no need for an async function here as we are not awaiting the
   // resolution of a Promise
-  const addToCartHandler = (product, qty) => {
+  const addToCartHandler = (product, qty) =>
+  {
     dispatch(addToCart({ ...product, qty }));
   };
 
-  const removeFromCartHandler = (id) => {
+  const removeFromCartHandler = (id) =>
+  {
     dispatch(removeFromCart(id));
   };
 
-  const checkoutHandler = () => {
-    navigate('/login?redirect=/shipping');
+  const checkoutHandler = () =>
+  {
+    if (!localStorage.getItem("isLoggedIn")) {
+      navigate('/login?redirect=/shipping');
+    }
+    else {
+      navigate('/shipping');
+    }
+
   };
 
   return (

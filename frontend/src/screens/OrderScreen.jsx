@@ -1,20 +1,24 @@
 import { useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap';
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import {
+import
+{
   useDeliverOrderMutation,
   useGetOrderDetailsQuery,
   useGetPaypalClientIdQuery,
   usePayOrderMutation,
 } from '../slices/ordersApiSlice';
-
-const OrderScreen = () => {
+import { ORDERS_URL } from '../constants';
+const OrderScreen = () =>
+{
   const { id: orderId } = useParams();
+
+  const navigate = useNavigate();
 
   const {
     data: order,
@@ -23,12 +27,14 @@ const OrderScreen = () => {
     error,
   } = useGetOrderDetailsQuery(orderId);
 
+  console.log("order=======>", order)
+
   const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation();
 
   const [deliverOrder, { isLoading: loadingDeliver }] =
     useDeliverOrderMutation();
 
-  const { userInfo } = useSelector((state) => state.auth);
+  const { userInfo } = useSelector((state) => state.user);
 
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
 
@@ -38,9 +44,11 @@ const OrderScreen = () => {
     error: errorPayPal,
   } = useGetPaypalClientIdQuery();
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     if (!errorPayPal && !loadingPayPal && paypal.clientId) {
-      const loadPaypalScript = async () => {
+      const loadPaypalScript = async () =>
+      {
         paypalDispatch({
           type: 'resetOptions',
           value: {
@@ -58,8 +66,10 @@ const OrderScreen = () => {
     }
   }, [errorPayPal, loadingPayPal, order, paypal, paypalDispatch]);
 
-  function onApprove(data, actions) {
-    return actions.order.capture().then(async function (details) {
+  function onApprove(data, actions)
+  {
+    return actions.order.capture().then(async function (details)
+    {
       try {
         await payOrder({ orderId, details });
         refetch();
@@ -71,18 +81,21 @@ const OrderScreen = () => {
   }
 
   // TESTING ONLY! REMOVE BEFORE PRODUCTION
-  // async function onApproveTest() {
+  // async function onApproveTest()
+  // {
   //   await payOrder({ orderId, details: { payer: {} } });
   //   refetch();
 
   //   toast.success('Order is paid');
   // }
 
-  function onError(err) {
+  function onError(err)
+  {
     toast.error(err.message);
   }
 
-  function createOrder(data, actions) {
+  function createOrder(data, actions)
+  {
     return actions.order
       .create({
         purchase_units: [
@@ -91,12 +104,14 @@ const OrderScreen = () => {
           },
         ],
       })
-      .then((orderID) => {
+      .then((orderID) =>
+      {
         return orderID;
       });
   }
 
-  const deliverHandler = async () => {
+  const deliverHandler = async () =>
+  {
     await deliverOrder(orderId);
     refetch();
   };
@@ -220,12 +235,12 @@ const OrderScreen = () => {
                   ) : (
                     <div>
                       {/* THIS BUTTON IS FOR TESTING! REMOVE BEFORE PRODUCTION! */}
-                      {/* <Button
+                      <Button
                         style={{ marginBottom: '10px' }}
-                        onClick={onApproveTest}
+                        onClick={onApprove}
                       >
                         Test Pay Order
-                      </Button> */}
+                      </Button>
 
                       <div>
                         <PayPalButtons

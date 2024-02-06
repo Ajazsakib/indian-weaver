@@ -4,7 +4,7 @@ import { Container } from 'react-bootstrap';
 import { Outlet } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { logout } from './slices/authSlice';
+// import { logout } from './slices/authSlice';
 import { useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -23,7 +23,7 @@ const App = () =>
 
       if (currentTime > expirationTime) {
         alert("timeout")
-        dispatch(logout());
+        // dispatch(logout());
       }
     }
   }, [dispatch]);

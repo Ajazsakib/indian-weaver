@@ -7,7 +7,8 @@ import { verifyPayPalPayment, checkIfNewTransaction } from '../utils/paypal.js';
 // @desc    Create new order
 // @route   POST /api/orders
 // @access  Private
-const addOrderItems = asyncHandler(async (req, res) => {
+const addOrderItems = asyncHandler(async (req, res) =>
+{
   const { orderItems, shippingAddress, paymentMethod } = req.body;
 
   if (orderItems && orderItems.length === 0) {
@@ -25,7 +26,8 @@ const addOrderItems = asyncHandler(async (req, res) => {
     });
 
     // map over the order items and use the price from our items from database
-    const dbOrderItems = orderItems.map((itemFromClient) => {
+    const dbOrderItems = orderItems.map((itemFromClient) =>
+    {
       const matchingItemFromDB = itemsFromDB.find(
         (itemFromDB) => itemFromDB._id.toString() === itemFromClient._id
       );
@@ -61,7 +63,8 @@ const addOrderItems = asyncHandler(async (req, res) => {
 // @desc    Get logged in user orders
 // @route   GET /api/orders/myorders
 // @access  Private
-const getMyOrders = asyncHandler(async (req, res) => {
+const getMyOrders = asyncHandler(async (req, res) =>
+{
   const orders = await Order.find({ user: req.user._id });
   res.json(orders);
 });
@@ -69,7 +72,8 @@ const getMyOrders = asyncHandler(async (req, res) => {
 // @desc    Get order by ID
 // @route   GET /api/orders/:id
 // @access  Private
-const getOrderById = asyncHandler(async (req, res) => {
+const getOrderById = asyncHandler(async (req, res) =>
+{
   const order = await Order.findById(req.params.id).populate(
     'user',
     'name email'
@@ -86,15 +90,17 @@ const getOrderById = asyncHandler(async (req, res) => {
 // @desc    Update order to paid
 // @route   PUT /api/orders/:id/pay
 // @access  Private
-const updateOrderToPaid = asyncHandler(async (req, res) => {
+const updateOrderToPaid = asyncHandler(async (req, res) =>
+{
+
   // NOTE: here we need to verify the payment was made to PayPal before marking
   // the order as paid
-  const { verified, value } = await verifyPayPalPayment(req.body.id);
-  if (!verified) throw new Error('Payment not verified');
+  // const { verified, value } = await verifyPayPalPayment(req.body.id);
+  // if (!verified) throw new Error('Payment not verified');
 
-  // check if this transaction has been used before
-  const isNewTransaction = await checkIfNewTransaction(Order, req.body.id);
-  if (!isNewTransaction) throw new Error('Transaction has been used before');
+  // // check if this transaction has been used before
+  // const isNewTransaction = await checkIfNewTransaction(Order, req.body.id);
+  // if (!isNewTransaction) throw new Error('Transaction has been used before');
 
   const order = await Order.findById(req.params.id);
 
@@ -124,7 +130,8 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
 // @desc    Update order to delivered
 // @route   GET /api/orders/:id/deliver
 // @access  Private/Admin
-const updateOrderToDelivered = asyncHandler(async (req, res) => {
+const updateOrderToDelivered = asyncHandler(async (req, res) =>
+{
   const order = await Order.findById(req.params.id);
 
   if (order) {
@@ -143,12 +150,14 @@ const updateOrderToDelivered = asyncHandler(async (req, res) => {
 // @desc    Get all orders
 // @route   GET /api/orders
 // @access  Private/Admin
-const getOrders = asyncHandler(async (req, res) => {
+const getOrders = asyncHandler(async (req, res) =>
+{
   const orders = await Order.find({}).populate('user', 'id name');
   res.json(orders);
 });
 
-export {
+export
+{
   addOrderItems,
   getMyOrders,
   getOrderById,

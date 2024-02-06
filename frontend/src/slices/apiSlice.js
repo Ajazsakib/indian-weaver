@@ -17,9 +17,8 @@ async function baseQueryWithAuth(args, api, extra)
 {
   const result = await baseQuery(args, api, extra);
   // Dispatch the logout action on 401.
-  console.log(result, "result>>>>>>>>>>>>>>")
   if (result.error && result.error.status === 401) {
-    api.dispatch(logout());
+    // api.dispatch(logout());
   }
   return result;
 }

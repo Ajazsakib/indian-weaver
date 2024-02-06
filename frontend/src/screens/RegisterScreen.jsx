@@ -19,7 +19,7 @@ const RegisterScreen = () =>
 
   // const [register, { isLoading }] = useRegisterMutation();
 
-  const { userInfo } = useSelector((state) => state.auth);
+  const { userInfo } = useSelector((state) => state.user);
 
   const { search } = useLocation();
   const sp = new URLSearchParams(search);

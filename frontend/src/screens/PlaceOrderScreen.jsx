@@ -9,14 +9,16 @@ import Loader from '../components/Loader';
 import { useCreateOrderMutation } from '../slices/ordersApiSlice';
 import { clearCartItems } from '../slices/cartSlice';
 
-const PlaceOrderScreen = () => {
+const PlaceOrderScreen = () =>
+{
   const navigate = useNavigate();
 
   const cart = useSelector((state) => state.cart);
 
   const [createOrder, { isLoading, error }] = useCreateOrderMutation();
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     if (!cart.shippingAddress.address) {
       navigate('/shipping');
     } else if (!cart.paymentMethod) {
@@ -25,7 +27,8 @@ const PlaceOrderScreen = () => {
   }, [cart.paymentMethod, cart.shippingAddress.address, navigate]);
 
   const dispatch = useDispatch();
-  const placeOrderHandler = async () => {
+  const placeOrderHandler = async () =>
+  {
     try {
       const res = await createOrder({
         orderItems: cart.cartItems,
@@ -131,7 +134,7 @@ const PlaceOrderScreen = () => {
               </ListGroup.Item>
               <ListGroup.Item>
                 {error && (
-                  <Message variant='danger'>{error.data.message}</Message>
+                  <Message variant='danger'>{error?.data?.message}</Message>
                 )}
               </ListGroup.Item>
               <ListGroup.Item>
