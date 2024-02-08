@@ -46,7 +46,7 @@ const Header = () =>
   return (
     <header>
       <Navbar className='menu-bar' expand='lg' collapseOnSelect>
-        <Container>
+        <div className="custom-container">
           <LinkContainer to='/'>
             <Navbar.Brand>
               <img src={logo} alt='ProShop' />
@@ -108,7 +108,7 @@ const Header = () =>
               )}
             </Nav>
           </Navbar.Collapse>
-        </Container>
+        </div>
       </Navbar>
     </header >
   );

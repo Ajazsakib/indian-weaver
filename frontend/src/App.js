@@ -39,7 +39,7 @@ const App = () =>
       <main>
 
         <Outlet />
-        <AboutUs />
+
       </main>
       <Footer />
     </>

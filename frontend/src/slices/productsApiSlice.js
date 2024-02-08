@@ -135,6 +135,17 @@ export const fetchProducts = createAsyncThunk("products/fetch", async () =>
   }
 })
 
+export const fetchProductsBySearch = createAsyncThunk("products/search", async (keyword) =>
+{
+  try {
+    const response = await axios.get(`${BASE_URL}${PRODUCTS_URL}?keyword=${keyword}`)
+    return response.data
+  } catch (err) {
+    console.log(err)
+  }
+})
+
+
 export const deleteProducts = createAsyncThunk("products/delete", async (productId) =>
 {
   try {
@@ -188,6 +199,9 @@ const productSlice = createSlice({
   },
   extraReducers: (builder) => [
     builder.addCase(fetchProducts.fulfilled, (state, action) =>
+    {
+      state.products = action.payload
+    }).addCase(fetchProductsBySearch.fulfilled, (state, action) =>
     {
       state.products = action.payload
     })

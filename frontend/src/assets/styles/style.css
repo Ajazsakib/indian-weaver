@@ -3,14 +3,49 @@
     --headingColor: #232323;
     --textColor: ##616161;
 }   
-
+.error-color {
+    color: #c20302;
+}
+.custom-container {
+    padding: 0 60px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.w-100px {
+    min-width: 60px;
+}
+.show-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+}
+.custom-container.child-center {
+    justify-content: center;
+}
+.search-products {
+    width: 60%;
+    height: 60px;
+    border: 1px solid #dddddd;
+    border-radius: 6px;
+    padding-left: 16px;
+    font-size: 24px;
+}
+.search-products::placeholder {
+    color: #dddddd;
+}
+.search-products:focus {
+    outline: 0;
+}
 /* Code For Top Header*/
 .header-container-fluid {
     background-color: var(--primaryColor);
     height: 40px;
     display: flex;
         align-items: center;
-        padding: 0 60px;
+        padding: 0 80px;
 }
 .header-container {
     display: flex;

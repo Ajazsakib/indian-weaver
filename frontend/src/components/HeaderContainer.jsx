@@ -7,9 +7,8 @@ const HeaderContainer = ({ children }) =>
     const location = useLocation()
     return (
         <div>
-            {
-                location.pathname !== "/login" && children
-            }
+            {location.pathname !== "/login" && location.pathname !== "/register" && children}
+
         </div>
     )
 }

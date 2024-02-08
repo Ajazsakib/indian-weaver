@@ -1,6 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { USERS_URL } from '../constants';
 import { BASE_URL } from '../constants';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import axios from "axios";
 let initialState = {
   users: [],
@@ -9,6 +12,13 @@ let initialState = {
 }
 
 
+const userInfo = localStorage.getItem("userInfo");
+const token = userInfo ? JSON.parse(userInfo).token : null;
+const headers = {
+  'Content-Type': 'application/json',
+  'Authorization': token ? `Bearer ${token}` : ''
+};
+
 export const registerUser = createAsyncThunk("user/registerUser", async (data) =>
 {
   try {
@@ -16,7 +26,8 @@ export const registerUser = createAsyncThunk("user/registerUser", async (data) =
     return response.data;
   }
   catch (err) {
-    console.log(err)
+    console.log(err?.response?.data?.message)
+    toast.error(err?.response?.data?.message || 'Error registering user');
   }
 })
 
@@ -26,7 +37,7 @@ export const loginUser = createAsyncThunk("user/login", async (data) =>
     const response = await axios.post(`${BASE_URL}${USERS_URL}/auth`, data)
     return response.data;
   } catch (err) {
-    console.log(err)
+    toast.error(err?.response?.data?.message || 'Error registering user');
   }
 })
 
@@ -36,7 +47,20 @@ export const logoutUser = createAsyncThunk("user/logout", async (data) =>
     const response = await axios.post(`${BASE_URL}${USERS_URL}/logout`, data)
     return response.data;
   } catch (err) {
+
+
+  }
+})
+
+
+export const getUsers = createAsyncThunk("user/fetch", async () =>
+{
+  try {
+    const response = await axios.get(`${BASE_URL}${USERS_URL}`, { headers })
+    return response.data;
+  } catch (err) {
     console.log(err)
+
   }
 })
 
@@ -50,15 +74,22 @@ const userSlice = createSlice({
   extraReducers: (builder) => [
     builder.addCase(registerUser.fulfilled, (state, action) =>
     {
-      state.users.push(action.payload)
-      state.isLoggedIn = true;
+      if (action.payload) {
+        state.users.push(action.payload)
+      }
+
+
     }).addCase(loginUser.fulfilled, (state, action) =>
     {
-      // Update the state if needed
-      state.res = action.payload;
-      state.isLoggedIn = true;
-      localStorage.setItem("userInfo", JSON.stringify(action.payload));
-      localStorage.setItem("isLoggedIn", state.isLoggedIn)
+      // Handle the rejection, you can show an error toast or update the state as needed
+      if (action.payload) {
+        state.res = action.payload;
+        state.isLoggedIn = true;
+        localStorage.setItem("userInfo", JSON.stringify(action.payload));
+        localStorage.setItem("isLoggedIn", state.isLoggedIn)
+      }
+
+
 
     }).addCase(logoutUser.fulfilled, (state, action) =>
     {
@@ -68,6 +99,9 @@ const userSlice = createSlice({
       localStorage.removeItem("userInfo");
       localStorage.removeItem("isLoggedIn");
 
+    }).addCase(getUsers.fulfilled, (state, action) =>
+    {
+      state.users = action.payload
     })
   ]
 

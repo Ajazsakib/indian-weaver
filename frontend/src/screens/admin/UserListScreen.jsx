@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Table, Button } from 'react-bootstrap';
 import { FaTrash, FaEdit, FaCheck, FaTimes } from 'react-icons/fa';
 import Message from '../../components/Message';
 import Loader from '../../components/Loader';
-
+import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-
+import { getUsers } from '../../slices/usersApiSlice';
 const UserListScreen = () =>
 {
-
+    const dispatch = useDispatch()
+    const users = useSelector((state) =>
+    {
+        return state.user.users
+    })
 
     const deleteHandler = async (id) =>
     {
@@ -25,6 +29,15 @@ const UserListScreen = () =>
 
     let isLoading = false;
     let error = false;
+
+
+
+    console.log(users, "users>>>>>>>>>>>>>")
+
+    useEffect(() =>
+    {
+        dispatch(getUsers())
+    }, [])
 
     return (
         <>
@@ -47,7 +60,7 @@ const UserListScreen = () =>
                         </tr>
                     </thead>
                     <tbody>
-                        {/* {users.map((user) => (
+                        {users && users.map((user) => (
                             <tr key={user._id}>
                                 <td>{user._id}</td>
                                 <td>{user.name}</td>
@@ -83,7 +96,7 @@ const UserListScreen = () =>
                                     )}
                                 </td>
                             </tr>
-                        ))} */}
+                        ))}
                     </tbody>
                 </Table>
             )}
