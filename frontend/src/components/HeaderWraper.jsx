@@ -1,5 +1,4 @@
 import React from 'react';
-import { Row, Col, Container } from 'react-bootstrap';
 import "../assets/styles/style.css";
 const HeaderWraper = () =>
 {
@@ -25,16 +24,16 @@ const HeaderWraper = () =>
             </div>
             <div className="social-icons">
                 <div className='facebook'>
-                    <img src="images/facebook.png" />
+                    <img src="images/facebook.png" alt="icon" />
                 </div>
                 <div className='facebook'>
-                    <img src="images/instagram.png" />
+                    <img src="images/instagram.png" alt="icon" />
                 </div>
                 <div className='facebook'>
-                    <img src="images/twitter.png" />
+                    <img src="images/twitter.png" alt="icon" />
                 </div>
                 <div className='whatsapp'>
-                    <img src="images/whatsapp.png" />
+                    <img src="images/whatsapp.png" alt="icon" />
                 </div>
             </div>
 

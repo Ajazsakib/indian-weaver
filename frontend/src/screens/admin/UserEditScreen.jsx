@@ -1,56 +1,20 @@
-import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import Message from '../../components/Message';
 import Loader from '../../components/Loader';
 import FormContainer from '../../components/FormContainer';
-import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
-import
-{
-    useGetUserDetailsQuery,
-    useUpdateUserMutation,
-} from '../../slices/usersApiSlice';
+
 
 const UserEditScreen = () =>
 {
-    const { id: userId } = useParams();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [isAdmin, setIsAdmin] = useState(false);
 
-    // const {
-    //     data: user,
-    //     isLoading,
-    //     error,
-    //     refetch,
-    // } = useGetUserDetailsQuery(userId);
 
-    // const [updateUser, { isLoading: loadingUpdate }] = useUpdateUserMutation();
 
-    const navigate = useNavigate();
-
-    // const submitHandler = async (e) =>
-    // {
-    //     e.preventDefault();
-    //     try {
-    //         await updateUser({ userId, name, email, isAdmin });
-    //         toast.success('user updated successfully');
-    //         refetch();
-    //         navigate('/admin/userlist');
-    //     } catch (err) {
-    //         toast.error(err?.data?.message || err.error);
-    //     }
-    // };
-
-    // useEffect(() =>
-    // {
-    //     if (user) {
-    //         setName(user.name);
-    //         setEmail(user.email);
-    //         setIsAdmin(user.isAdmin);
-    //     }
-    // }, [user]);
 
 
     let isLoading = false;

@@ -1,7 +1,6 @@
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Rating from './Rating';
-import { useParams } from 'react-router-dom';
 
 const Product = ({ product }) =>
 {

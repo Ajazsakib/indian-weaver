@@ -13,11 +13,7 @@ import
     Form,
 } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-import
-{
-    useGetProductDetailsQuery,
-    useCreateReviewMutation,
-} from '../slices/productsApiSlice';
+
 import Rating from '../components/Rating';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
@@ -45,7 +41,7 @@ const ProductScreen = () =>
 
     const fetchSingleProduct = () =>
     {
-        let singleData = data.products.find((product) => product._id == productId)
+        let singleData = data.products.find((product) => product._id === productId)
         setProduct(singleData)
     }
 
@@ -54,7 +50,6 @@ const ProductScreen = () =>
         fetchSingleProduct()
     }, [])
 
-    console.log(product, "product on sreen")
     const addToCartHandler = () =>
     {
         dispatch(addToCart({ ...product, qty }));

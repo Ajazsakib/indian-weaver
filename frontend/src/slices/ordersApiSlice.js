@@ -14,9 +14,7 @@ const addAuthHeaders = () =>
 
 };
 
-if (addAuthHeaders()) {
-  authUser = JSON.parse(addAuthHeaders())
-}
+
 
 export const orderApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

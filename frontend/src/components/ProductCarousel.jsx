@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Carousel, Image } from 'react-bootstrap';
-import Message from './Message';
-import { useGetTopProductsQuery } from '../slices/productsApiSlice';
+import { Carousel, } from 'react-bootstrap';
 
 const ProductCarousel = () =>
 {
@@ -15,7 +13,7 @@ const ProductCarousel = () =>
         {products.map((product, index) => (
           <Carousel.Item key={index}>
             <Link to={`/product/${index}`}>
-              <img src={`/images/slide${product}.jpg`} alt="Image Slider" fluid />
+              <img src={`/images/slide${product}.jpg`} alt="Slider" fluid />
               {/* <Carousel.Caption className='carousel-caption'>
                 <h2 className='text-white text-right'>
                   {product.name} (${product.price})

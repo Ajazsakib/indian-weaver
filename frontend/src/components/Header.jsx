@@ -1,14 +1,10 @@
 // Header.jsx
 
 import React from 'react';
-import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
-import { FaShoppingCart, FaUser } from 'react-icons/fa';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useLogoutMutation } from '../slices/usersApiSlice';
-import { logout } from '../slices/authSlice';
-import SearchBox from './SearchBox';
 import logo from '../assets/logo.png';
 import { resetCart } from '../slices/cartSlice';
 import { logoutUser } from '../slices/usersApiSlice';
@@ -24,7 +20,6 @@ const Header = () =>
 {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userInfo = useSelector((state) => state.user);
   const getUserInfo = getUserInfoFromLocalStorage();
   const isLoggedIn = localStorage.getItem('isLoggedIn');
 

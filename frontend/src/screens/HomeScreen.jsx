@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Row, Col, Spinner } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import { useGetProductsQuery } from '../slices/productsApiSlice';
 import { Link } from 'react-router-dom';
 import Product from '../components/Product';
 import Loader from '../components/Loader';
@@ -16,16 +15,11 @@ import { fetchProducts } from '../slices/productsApiSlice';
 import { fetchProductsBySearch } from '../slices/productsApiSlice';
 const HomeScreen = () =>
 {
-  const { pageNumber, keyword } = useParams();
-  const navigate = useNavigate()
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false);
   const [renderCount, setRenderCount] = useState(7)
 
-  const userInfo = useSelector((state) =>
-  {
-    return state.user
-  })
+
 
   const products = useSelector((state) =>
   {

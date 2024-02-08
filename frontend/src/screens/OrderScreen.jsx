@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap';
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import { useSelector } from 'react-redux';
@@ -13,12 +13,10 @@ import
   useGetPaypalClientIdQuery,
   usePayOrderMutation,
 } from '../slices/ordersApiSlice';
-import { ORDERS_URL } from '../constants';
 const OrderScreen = () =>
 {
   const { id: orderId } = useParams();
 
-  const navigate = useNavigate();
 
   const {
     data: order,

@@ -33,7 +33,6 @@ import UserEditScreen from './screens/admin/UserEditScreen';
 import store from './store';
 import { Provider } from 'react-redux';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
-import HeaderContainer from './components/HeaderContainer';
 import "./assets/styles/style.css"
 const router = createBrowserRouter(
   createRoutesFromElements(
