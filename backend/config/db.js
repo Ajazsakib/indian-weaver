@@ -2,9 +2,10 @@ import mongoose from "mongoose";
 import 'dotenv/config'
 export const connectDB = async () =>
 {
-  const password = "S1s2s3s4@12";
+  const encodedPassword = encodeURIComponent("S1s2s3s4@12");
+
   try {
-    const con = await mongoose.connect(`mongodb://127.0.0.1:27017/IndianWeaver`);
+    const con = await mongoose.connect(`mongodb+srv://saquibajaz999:${encodedPassword}@cluster0.dx1z4wy.mongodb.net//IndianWeaver`);
     console.log(`Mongo DB Connected ${con.connection.host}`)
   }
   catch (error) {
