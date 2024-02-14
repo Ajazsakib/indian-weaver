@@ -1,5 +1,4 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { getUserInfoFromLocalStorage } from './Header';
 const AdminRoute = () =>
 {

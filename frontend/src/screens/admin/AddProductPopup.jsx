@@ -6,7 +6,6 @@ const AddProductPopup = ({ setShowAddProductFrom, createProductHandler }) =>
 {
 
 
-    const userinfo = localStorage.getItem("userInfo")
 
     const [formState, setFormState] = useState({
         name: "",

@@ -13,7 +13,6 @@ import { Table } from 'react-bootstrap';
 
 const ProductListScreen = () =>
 {
-    const { pageNumber } = useParams();
     const dispatch = useDispatch();
     const [showAddProductForm, setShowAddProductFrom] = useState(false);
 

@@ -10,21 +10,15 @@ import ProductCarousel from '../components/ProductCarousel';
 import Meta from '../components/Meta';
 import AboutUs from '../components/AboutUs';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { fetchProducts } from '../slices/productsApiSlice';
 import { fetchProductsBySearch } from '../slices/productsApiSlice';
 const HomeScreen = () =>
 {
   const { keyword } = useParams();
-  const navigate = useNavigate()
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false);
   const [renderCount, setRenderCount] = useState(7)
 
-  const userInfo = useSelector((state) =>
-  {
-    return state.user
-  })
 
   const products = useSelector((state) =>
   {

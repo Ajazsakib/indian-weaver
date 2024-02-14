@@ -2,17 +2,9 @@ import { apiSlice } from './apiSlice';
 import { ORDERS_URL, PAYPAL_URL } from '../constants';
 // import { addAuthHeaders } from '../utils/authUtils';
 
-let authUser;
 let token = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")).token : null
 console.log(token)
-const addAuthHeaders = () =>
-{
-  if (localStorage.getItem('userInfo')) {
-    const user = localStorage.getItem('userInfo');
-    return user
-  }
 
-};
 
 
 
