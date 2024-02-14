@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Row, Col } from 'react-bootstrap';
 import { FaPlus, FaTrash } from 'react-icons/fa';
-import { useParams } from 'react-router-dom';
 import Message from '../../components/Message';
 import Loader from '../../components/Loader';
 import { useDispatch, useSelector } from 'react-redux';
@@ -61,6 +60,7 @@ const ProductListScreen = () =>
     useEffect(() =>
     {
         dispatch(fetchProducts());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 

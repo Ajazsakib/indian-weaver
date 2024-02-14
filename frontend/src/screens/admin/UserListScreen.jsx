@@ -32,11 +32,11 @@ const UserListScreen = () =>
 
 
 
-    console.log(users, "users>>>>>>>>>>>>>")
 
     useEffect(() =>
     {
         dispatch(getUsers())
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

@@ -48,6 +48,7 @@ const ProductScreen = () =>
     useEffect(() =>
     {
         fetchSingleProduct()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const addToCartHandler = () =>
